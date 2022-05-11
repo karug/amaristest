@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: initDatabase
+      author: jdiaz@disofot.com
+      changes:
+        - createTable:
+            tableName: BRANDS
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: BRANDS_PK
+                  name: id
+                  type: number
+              - column:
+                  name: name
+                  type: varchar(20)
+        - createTable:
+            tableName: PRODUCTS
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: PRODUCTS_PK
+                  name: id
+                  type: number
+              - column:
+                  name: name
+                  type: varchar(20)
+        - createTable:
+            tableName: PRICES_LIST
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: PRICES_LIST_PK
+                  name: id
+                  type: number
+              - column:
+                  name: name
+                  type: varchar(20)
+        - createTable:
+            tableName: PRICES
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: PRICES_PK
+                  name: id
+                  type: number
+              - column:
+                  name: start_date
+                  type: datetime
+              - column:
+                  name: end_date
+                  type: datetime
+              - column:
+                  name: price_list
+                  type: number
+                  constraints:
+                    nullable: false
+                    foreignKeyName: prices_prices_list_fk
+                    references: prices_list(id)
+              - column:
+                  name: brand_id
+                  type: number
+                  constraints:
+                    nullable: false
+                    foreignKeyName: prices_brands_fk
+                    references: brands(id)
+              - column:
+                  name: product_id
+                  type: number
+                  constraints:
+                    nullable: false
+                    foreignKeyName: prices_products_fk
+                    references: products(id)
+              - column:
+                  name: priority
+                  type: number
+              - column:
+                  name: price
+                  type: currency
+              - column:
+                  name: curr
+                  type: ENUM('EUR', 'USD')
